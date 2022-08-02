@@ -65,7 +65,7 @@ class EmployeeController extends Controller
         for ($rate = 1; $rate <= 1; $rate++) {
             $yarn_rate = $sheet->getCell("AG{$rate}")->getValue();
             $mmk_rate = $sheet->getCell("AI{$rate}")->getValue();
-            $date = $sheet->getCell("A{$rate}")->getValue();
+            $date = $sheet->getCell("D{$rate}")->getValue();
             // return $date;
         }
 

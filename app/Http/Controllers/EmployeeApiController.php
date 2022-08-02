@@ -46,8 +46,8 @@ class EmployeeApiController extends Controller
         for ($rate = 1; $rate <= 1; $rate++) {
             $yarn_rate = $sheet->getCell("AG{$rate}")->getValue();
             $mmk_rate = $sheet->getCell("AI{$rate}")->getValue();
-            $paymonth = $sheet->getCell("AC{$rate}")->getValue();
-            // return $date;
+            $paymonth = $sheet->getCell("D{$rate}")->getValue();
+            // return $paymonth;
         }
 
         for ($row = 4; $row <= $totalRows; $row++) {
