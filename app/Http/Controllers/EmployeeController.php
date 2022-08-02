@@ -156,8 +156,8 @@ class EmployeeController extends Controller
 
         Mail::send('mail_content', $data, function ($message) use ($data, $pdf) {
             $message->to($data["employee_email"])
-                ->subject("給与明細送付_" . $data["month"] . "/" . $data["year"])
-                ->attachData($pdf->output(), $data["employee_name"] . " (" . $data["monthYear"] . " Salary Slip).pdf");
+                ->subject("給与明細送付_" . $data["payMonth"] . "/" . $data["year"])
+                ->attachData($pdf->output(), $data["employee_name"] . " (" . $data["payMonth"].",".$data["year"]. " Salary Slip).pdf");
         });
 
         return 'mail sent....';
