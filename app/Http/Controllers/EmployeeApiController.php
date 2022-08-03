@@ -159,7 +159,7 @@ class EmployeeApiController extends Controller
                     Mail::send('mail_content', $data, function ($message) use ($data, $pdf) {
                         $message->to($data["employee_email"])
                             ->subject("給与明細送付_" . $data["payMonth"] . "/" . $data["year"])
-                            ->attachData($pdf->output(), $data["employee_name"] . " (" . $data["payMonth"].",".$data["year"]. " Salary Slip).pdf");
+                            ->attachData($pdf->output(), $data["employee_name"] . " (" . $data["payMonth"] . "," . $data["year"] . " Salary Slip).pdf");
                     });
 
                     Employee::query()
@@ -235,7 +235,7 @@ class EmployeeApiController extends Controller
                     Mail::send('mail_content', $data, function ($message) use ($data, $pdf) {
                         $message->to($data["employee_email"])
                             ->subject("給与明細送付_" . $data["payMonth"] . "/" . $data["year"])
-                            ->attachData($pdf->output(), $data["employee_name"] . " (" . $data["payMonth"].",".$data["year"]. " Salary Slip).pdf");
+                            ->attachData($pdf->output(), $data["employee_name"] . " (" . $data["payMonth"] . "," . $data["year"] . " Salary Slip).pdf");
                     });
 
                     Employee::query()
@@ -355,7 +355,7 @@ class EmployeeApiController extends Controller
         Mail::send('mail_content', $data, function ($message) use ($data, $pdf) {
             $message->to($data["employee_email"])
                 ->subject("給与明細送付_" . $data["payMonth"] . "/" . $data["year"])
-                ->attachData($pdf->output(), $data["employee_name"] . " (" . $data["payMonth"].",".$data["year"]. " Salary Slip).pdf");
+                ->attachData($pdf->output(), $data["employee_name"] . " (" . $data["payMonth"] . "," . $data["year"] . " Salary Slip).pdf");
         });
 
         Employee::query()
@@ -369,5 +369,68 @@ class EmployeeApiController extends Controller
             });
 
         return 'mail sent....';
+    }
+
+    public function sendMailToAll(Request $request)
+    {
+        $result = Employee::all();
+
+        foreach ($result as $value) {
+            $user = Employee::find($value['id']);
+
+            $year = Carbon::parse($user->created_at)->year;
+            $month = Carbon::parse($user->created_at)->month;
+            $day = Carbon::parse($user->created_at)->day;
+            $date = $year . "/" . $month . "/" . $day;
+            $monthYear = date('F', strtotime($user->created_at)) . "," . $year;
+            $usd_rate = round($user->usd_rate);
+            $total = round($user->total_payment);
+            $total_amount = number_format($total);
+
+            $data["employee_id"] = $user->employee_id;
+            $data["employee_email"] = $user->employee_email;
+            $data["employee_name"] = $user->employee_name;
+            $data["employee_nrc_number"] = $user->employee_nrc_number;
+            $data["aggregate"] = $user->aggregate;
+            $data["pre_training_hours"] = $user->pre_training_hours;
+            $data["meeting_attendance"] = $user->meeting_attendance;
+            $data["leader_allowance"] = $user->leader_allowance;
+            $data["working_hours"] = $user->working_hours;
+            $data["cross_check"] = $user->cross_check;
+            $data["correction_work_time"] = $user->correction_work_time;
+            $data["basic_hourly_wage"] = $user->basic_hourly_wage;
+            $data["incentives"] = $user->incentives;
+            $data["payment_amount_with_yen"] = $user->payment_amount_with_yen;
+            $data["usd_rate"] = $user->usd_rate;
+            $data["yarn_rate"] = $user->yarn_rate;
+            $data["mmk_rate"] = $user->mmk_rate;
+            $data["total_payment"] = $user->total_payment;
+            $data["monthYear"] = $monthYear;
+            $data["payMonth"] = $user->pay_month;
+            $data["date"] = $date;
+            $data["month"] = $month;
+            $data["year"] = $year;
+            $data["usd_rate"] = $usd_rate;
+            $data["total_payment"] = $total_amount;
+
+            $pdf = PDF::loadView('pdf_template', $data);
+
+            Mail::send('mail_content', $data, function ($message) use ($data, $pdf) {
+                $message->to($data["employee_email"])
+                    ->subject("給与明細送付_" . $data["payMonth"] . "/" . $data["year"])
+                    ->attachData($pdf->output(), $data["employee_name"] . " (" . $data["payMonth"] . "," . $data["year"] . " Salary Slip).pdf");
+            });
+
+            Employee::query()
+                ->where('id', $user->id)
+                ->each(function ($user) {
+                    $newRecord = $user->replicate();
+                    $newRecord->setTable('employee_histories');
+                    $newRecord->save();
+
+                    $user->delete();
+                });
+        }
+        return 'success';
     }
 }
