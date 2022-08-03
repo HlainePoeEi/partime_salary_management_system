@@ -26,5 +26,6 @@ Route::middleware('api')->group(function () {
     // Route::get('delete_historyapi',[EmployeeApiController::class,'delete_history']);
     Route::get('update/{id}', [EmployeeApiController::class, 'edit']);
     Route::post('update/{id}', [EmployeeApiController::class, 'update']);
-    Route::get('test/{id}',[EmployeeApiController::class, 'test_send_mail']);
+    Route::get('test/{id}', [EmployeeApiController::class, 'test_send_mail']);
+    Route::post('send_all', [EmployeeApiController::class, 'sendMailToAll']);
 });

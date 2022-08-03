@@ -3,6 +3,8 @@
         Options -MultiViews -Indexes
     </IfModule>
 
+    php_value max_execution_time 900
+
     RewriteEngine On
 
     # Handle Authorization Header
