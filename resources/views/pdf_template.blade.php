@@ -161,10 +161,10 @@
         </tbody>
     </table>
     <table id="tbl_data">
-        <!-- <tr>
-            <td> {{$addition}}</td>
-        </tr> -->
         <tr>
+            <td> {{$addition}}</td>
+        </tr>
+        <!-- <tr>
             <td> 基本時給 :</td>
             <td> 300円</td>
         </tr>
@@ -183,7 +183,7 @@
         <tr>
             <td> Incentives単価※6月分 :</td>
             <td> 100円</td>
-        </tr>
+        </tr> -->
         <br><br>
         <tr>
             <td> Name :</td>
