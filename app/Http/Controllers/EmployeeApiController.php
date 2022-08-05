@@ -44,11 +44,9 @@ class EmployeeApiController extends Controller
 
         $totalRows = $worksheetInfo[0]['totalRows'];
         for ($rate = 1; $rate <= 1; $rate++) {
-            $yarn_rate = $sheet->getCell("AG{$rate}")->getValue();
-            $mmk_rate = $sheet->getCell("AI{$rate}")->getValue();
+            $yarn_rate = $sheet->getCell("AH{$rate}")->getValue();
+            $mmk_rate = $sheet->getCell("AJ{$rate}")->getValue();
             $paymonth = $sheet->getCell("D{$rate}")->getValue();
-            $addition = $sheet->getCell("AE{$rate}")->getValue();
-            // return $addition;
         }
 
         for ($row = 4; $row <= $totalRows; $row++) {
@@ -58,18 +56,18 @@ class EmployeeApiController extends Controller
                 $employee_email = $sheet->getCell("D{$row}")->getValue();
                 $employee_nrc_number = $sheet->getCell("E{$row}")->getValue();
                 $add_info = $sheet->getCell("F{$row}")->getValue();
-                $aggregate = $sheet->getCell("AD{$row}")->getCalculatedValue();
-                $pre_training_hours = $sheet->getCell("X{$row}")->getValue();
-                $meeting_attendance = $sheet->getCell("Y{$row}")->getValue();
-                $leader_allowance = $sheet->getCell("Z{$row}")->getValue();
-                $working_hours = $sheet->getCell("AA{$row}")->getValue();
-                $cross_check = $sheet->getCell("AB{$row}")->getValue();
-                $correction_work_time = $sheet->getCell("AC{$row}")->getValue();
-                $basic_hourly_wage = $sheet->getCell("AE{$row}")->getValue();
-                $incentives = $sheet->getCell("AF{$row}")->getValue();
-                $payment_amount_with_yen = $sheet->getCell("AG{$row}")->getCalculatedValue();
-                $usd_rate = $sheet->getCell("AH{$row}")->getCalculatedValue();
-                $total_payment = $sheet->getCell("AI{$row}")->getCalculatedValue();
+                $aggregate = $sheet->getCell("AE{$row}")->getCalculatedValue();
+                $pre_training_hours = $sheet->getCell("Y{$row}")->getValue();
+                $meeting_attendance = $sheet->getCell("Z{$row}")->getValue();
+                $leader_allowance = $sheet->getCell("AA{$row}")->getValue();
+                $working_hours = $sheet->getCell("AB{$row}")->getValue();
+                $cross_check = $sheet->getCell("AC{$row}")->getValue();
+                $correction_work_time = $sheet->getCell("AD{$row}")->getCalculatedValue();
+                $basic_hourly_wage = $sheet->getCell("AF{$row}")->getCalculatedValue();
+                $incentives = $sheet->getCell("AG{$row}")->getCalculatedValue();
+                $payment_amount_with_yen = $sheet->getCell("AH{$row}")->getCalculatedValue();
+                $usd_rate = $sheet->getCell("AI{$row}")->getCalculatedValue();
+                $total_payment = $sheet->getCell("AJ{$row}")->getCalculatedValue();
 
                 $data = new Employee([
                     'employee_id' => $employee_id,
@@ -91,7 +89,6 @@ class EmployeeApiController extends Controller
                     'mmk_rate' => $mmk_rate,
                     'pay_month' => $paymonth,
                     'total_payment' => $total_payment,
-                    'addition' => $addition,
                     'add_info' => $add_info,
                 ]);
                 $data->save();
@@ -157,7 +154,6 @@ class EmployeeApiController extends Controller
                     $data["year"] = $year;
                     $data["usd_rate"] = $usd_rate;
                     $data["total_payment"] = $total_amount;
-                    $data["addition"] = $user->addition;
                     $data["add_info"] = $user->add_info;
 
                     $pdf = PDF::loadView('pdf_template', $data);
@@ -235,7 +231,6 @@ class EmployeeApiController extends Controller
                     $data["year"] = $year;
                     $data["usd_rate"] = $usd_rate;
                     $data["total_payment"] = $total_amount;
-                    $data["addition"] = $user->addition;
                     $data["add_info"] = $user->add_info;
 
                     $pdf = PDF::loadView('pdf_template', $data);
