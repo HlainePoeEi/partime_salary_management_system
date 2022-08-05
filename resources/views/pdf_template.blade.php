@@ -8,34 +8,43 @@
     <title>Monthy Slip of {{ $employee_name }}</title>
 </head>
 <style>
-		@font-face{ 
-			font-family: ipag; 
-			font-style: normal; 
-			font-weight: normal; 
-			src:url("{{ storage_path('fonts/ipag.ttf')}}"); 
-			}
-			body { font-family: ipag; }
-			hr 
-			{ 
-				width: 155%; 
-				margin-left: 0px;
-			}
-            table td:nth-child(1){
-				padding-right: 40px;
-			}
-            table td:nth-child(2) {
-                text-align: right;
-            }
-            table td:nth-child(3) {
-                text-align: left;
-            }
-            #tbl_data{
-               width: 400px;
-            }
-            #tbl_data td:nth-child(2){
-               text-align: left;
-            }
+    @font-face {
+        font-family: ipag;
+        font-style: normal;
+        font-weight: normal;
+        src:url("{{ storage_path('fonts/ipag.ttf')}}");
+    }
+
+    body {
+        font-family: ipag;
+    }
+
+    hr {
+        width: 155%;
+        margin-left: 0px;
+    }
+
+    table td:nth-child(1) {
+        padding-right: 40px;
+    }
+
+    table td:nth-child(2) {
+        text-align: right;
+    }
+
+    table td:nth-child(3) {
+        text-align: left;
+    }
+
+    #tbl_data {
+        width: 400px;
+    }
+
+    #tbl_data td:nth-child(2) {
+        text-align: left;
+    }
 </style>
+
 <body>
     <h1 style="text-align: center;"><u>Official Report for Monthly Salary</u></h1>
     <div style="float: right;">As of {{ $date }}</div>
@@ -125,19 +134,19 @@
                 </td>
                 <td>(￥)</td>
             </tr>
-   			<hr />
+            <hr />
             <tr>
                 <td>
-                    レード  {{ $yarn_rate }}　(￥)
+                    レード {{ $yarn_rate }}　(￥)
                 </td>
                 <td>
-                    {{ $usd_rate }} 
+                    {{ $usd_rate }}
                 </td>
                 <td>USD</td>
             </tr>
             <tr>
                 <td>
-                    レード  {{ $mmk_rate }}　MMK
+                    レード {{ $mmk_rate }}　MMK
                 </td>
             </tr>
             <tr>
@@ -145,23 +154,47 @@
                     支給合計額
                 </td>
                 <td>
-                {{ $total_payment }}
+                    {{ $total_payment }}
                 </td>
                 <td>MMK</td>
-            </tr><br>
+            </tr><br><br>
         </tbody>
     </table>
     <table id="tbl_data">
+        <!-- <tr>
+            <td> {{$addition}}</td>
+        </tr> -->
         <tr>
-            <td>  Name :</td>
+            <td> 基本時給 :</td>
+            <td> 300円</td>
+        </tr>
+        <tr>
+            <td> Incentives Hr※7月分 :</td>
+            <td> 16時間</td>
+        </tr>
+        <tr>
+            <td> Incentives単価※7月分 :</td>
+            <td> 250円</td>
+        </tr>
+        <tr>
+            <td> Incentives Hr※6月分 :</td>
+            <td> 20時間</td>
+        </tr>
+        <tr>
+            <td> Incentives単価※6月分 :</td>
+            <td> 100円</td>
+        </tr>
+        <br><br>
+        <tr>
+            <td> Name :</td>
             <td> {{ $employee_name }}</td>
         </tr>
         <tr>
-            <td>  Employee Number:</td>
+            <td> Employee Number:</td>
             <td> {{ $employee_id }}</td>
         </tr>
         <tr>
-            <td>  NRC Number:</td>
+            <td> NRC Number:</td>
             <td> {{ $employee_nrc_number }}</td>
         </tr>
         <tr>
@@ -169,4 +202,5 @@
         </tr>
     </table>
 </body>
+
 </html>
