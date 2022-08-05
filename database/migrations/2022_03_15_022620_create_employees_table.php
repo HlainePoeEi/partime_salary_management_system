@@ -34,6 +34,7 @@ class CreateEmployeesTable extends Migration
             $table->string('mmk_rate')->nullable();
             $table->string('total_payment')->nullable();
             $table->string('pay_month')->nullable();
+            $table->string('addition')->nullable();
             $table->timestamps();
         });
     }

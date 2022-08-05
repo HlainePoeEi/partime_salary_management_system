@@ -47,7 +47,8 @@ class EmployeeApiController extends Controller
             $yarn_rate = $sheet->getCell("AG{$rate}")->getValue();
             $mmk_rate = $sheet->getCell("AI{$rate}")->getValue();
             $paymonth = $sheet->getCell("D{$rate}")->getValue();
-            // return $paymonth;
+            $addition = $sheet->getCell("AE{$rate}")->getValue();
+            // return $addition;
         }
 
         for ($row = 4; $row <= $totalRows; $row++) {
@@ -89,6 +90,7 @@ class EmployeeApiController extends Controller
                     'mmk_rate' => $mmk_rate,
                     'pay_month' => $paymonth,
                     'total_payment' => $total_payment,
+                    'addition' => $addition,
                 ]);
                 $data->save();
             }
@@ -153,6 +155,7 @@ class EmployeeApiController extends Controller
                     $data["year"] = $year;
                     $data["usd_rate"] = $usd_rate;
                     $data["total_payment"] = $total_amount;
+                    $data["addition"] = $user->addition;
 
                     $pdf = PDF::loadView('pdf_template', $data);
 
@@ -229,6 +232,7 @@ class EmployeeApiController extends Controller
                     $data["year"] = $year;
                     $data["usd_rate"] = $usd_rate;
                     $data["total_payment"] = $total_amount;
+                    $data["addition"] = $user->addition;
 
                     $pdf = PDF::loadView('pdf_template', $data);
 
@@ -373,7 +377,16 @@ class EmployeeApiController extends Controller
 
     public function sendMailToAll(Request $request)
     {
+        // $itemArray = $request->input('selectedItems');
+        // return $itemArray;
+        // $result = explode(",", $itemArray);
+        // return $result;
+        // for ($i = 0; $i < count($result); $i++) {
+        //     $user = Employee::find($result[$i]);
+        // }
+        // return $user;
         $result = Employee::all();
+
 
         foreach ($result as $value) {
             $user = Employee::find($value['id']);
