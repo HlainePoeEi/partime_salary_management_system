@@ -162,7 +162,7 @@
     </table>
     <table id="tbl_data">
         <tr>
-            <td> {{ $user->addition }} </td>
+            <td> {{ $user->add_info }} </td>
         </tr>
         <!-- <tr>
             <td> 基本時給 :</td>

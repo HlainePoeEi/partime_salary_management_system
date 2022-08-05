@@ -162,7 +162,7 @@
     </table>
     <table id="tbl_data">
         <tr>
-            <td> {{$addition}}</td>
+            <td> {{$add_info}}</td>
         </tr>
         <!-- <tr>
             <td> 基本時給 :</td>

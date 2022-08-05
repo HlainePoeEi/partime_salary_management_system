@@ -57,6 +57,7 @@ class EmployeeApiController extends Controller
                 $employee_name = $sheet->getCell("C{$row}")->getValue();
                 $employee_email = $sheet->getCell("D{$row}")->getValue();
                 $employee_nrc_number = $sheet->getCell("E{$row}")->getValue();
+                $add_info = $sheet->getCell("F{$row}")->getValue();
                 $aggregate = $sheet->getCell("AD{$row}")->getCalculatedValue();
                 $pre_training_hours = $sheet->getCell("X{$row}")->getValue();
                 $meeting_attendance = $sheet->getCell("Y{$row}")->getValue();
@@ -91,6 +92,7 @@ class EmployeeApiController extends Controller
                     'pay_month' => $paymonth,
                     'total_payment' => $total_payment,
                     'addition' => $addition,
+                    'add_info' => $add_info,
                 ]);
                 $data->save();
             }
@@ -156,6 +158,7 @@ class EmployeeApiController extends Controller
                     $data["usd_rate"] = $usd_rate;
                     $data["total_payment"] = $total_amount;
                     $data["addition"] = $user->addition;
+                    $data["add_info"] = $user->add_info;
 
                     $pdf = PDF::loadView('pdf_template', $data);
 
@@ -233,6 +236,7 @@ class EmployeeApiController extends Controller
                     $data["usd_rate"] = $usd_rate;
                     $data["total_payment"] = $total_amount;
                     $data["addition"] = $user->addition;
+                    $data["add_info"] = $user->add_info;
 
                     $pdf = PDF::loadView('pdf_template', $data);
 

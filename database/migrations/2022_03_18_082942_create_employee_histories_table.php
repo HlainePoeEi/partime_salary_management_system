@@ -35,6 +35,7 @@ class CreateEmployeeHistoriesTable extends Migration
             $table->string('total_payment')->nullable();
             $table->string('pay_month')->nullable();
             $table->string('addition')->nullable();
+            $table->string('add_info')->nullable();
             $table->timestamps();
         });
     }
